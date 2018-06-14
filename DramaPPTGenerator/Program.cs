@@ -44,8 +44,8 @@ namespace DramaPPTGenerator
             StreamReader readnamelist = new StreamReader(namelist);
             do
             {
-                string chinesename = readnamelist.ReadLine();
-                string englishname = readnamelist.ReadLine();
+                string chinesename = readnamelist.ReadLine().Trim();
+                string englishname = readnamelist.ReadLine().Trim();
                 CharactorName.Add(chinesename);
                 CharactorName.Add(englishname.ToLower());
             } while (!readnamelist.EndOfStream);
@@ -70,7 +70,7 @@ namespace DramaPPTGenerator
         {
             List<string> dialogues = new List<string>();
             string dialogue = string.Empty;
-            while ((dialogue = reader.ReadLine()) != null && !IsCharactorName(dialogue))
+            while ((dialogue = reader.ReadLine()) != null && !IsCharactorName(dialogue = dialogue.Trim()))
             {
                 dialogues.Add(dialogue);
             }
@@ -152,7 +152,7 @@ namespace DramaPPTGenerator
                         lineDivided.Clear();
                         continue;
                     }
-                    lineDivided.Append(AddPeriod(nextLines.Dequeue().Trim(' '), period));
+                    lineDivided.Append(AddPeriod(nextLines.Dequeue().Trim(), period));
                 }
                 linesDivided.Add(lineDivided.ToString());
                 return linesDivided;
